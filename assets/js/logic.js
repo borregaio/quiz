@@ -29,7 +29,20 @@ function hideScreen() {
 //make questions div visible
 
 function showQuestions() {
+
     questions.classList.remove("hide");
+    questionTitle.textContent = quiz.question1;
+
+    button1.textContent = quiz.answers1[0];
+    button2.textContent = quiz.answers1[1];
+    button3.textContent = quiz.answers1[2];
+    button4.textContent = quiz.answers1[3];
+    choices.appendChild(button1);
+    choices.appendChild(button2);
+    choices.appendChild(button3);
+    choices.appendChild(button4);
+
+
 }
 
 function startQuiz() {
