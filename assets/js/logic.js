@@ -3,9 +3,13 @@ var startButton = document.getElementById("start");
 var startScreen = document.getElementById("start-screen");
 var questions = document.getElementById("questions");
 var feedback = document.getElementById("feedback");
+var endScreen = document.getElementById("end-screen");
 var score = localStorage.getItem("score");
+var currentIndex = 0;
 // var isClicked = true;
 // var score = [];
+
+console.log(currentIndex);
 
 var secondsLeft = 60;
 
@@ -42,64 +46,96 @@ function hideScreen() {
     startScreen.classList.toggle("hide");
 }
 
+function correctAnswer() {
+    console.log("correct");
+    feedback.classList.remove("hide");
+    feedback.textContent = "Correct!"
+    setTimeout(function () {
+        feedback.classList.add("hide");
+    }, 1000);
+    score++
+    localStorage.setItem("score", score);
+}
+
+function incorrectAnswer() {
+    console.log("incorrect");
+    feedback.classList.remove("hide");
+    feedback.textContent = "Incorrect!"
+    setTimeout(function () {
+        feedback.classList.add("hide");
+    }, 1000);
+    score--
+    localStorage.setItem("score", score);
+    setTimeout(function () {
+        subtractTimeFromTimer(10);
+    });
+}
+
+
 
 //make questions div visible
 
 function showQuestions() {
 
     questions.classList.remove("hide");
-    questionTitle.textContent = quiz[0].question;
+    Question();
 
-    button1.textContent = quiz[0].answers[0];
-    button2.textContent = quiz[0].answers[1];
-    button3.textContent = quiz[0].answers[2];
-    button4.textContent = quiz[0].answers[3];
-    choices.appendChild(button1);
-    choices.appendChild(button2);
-    choices.appendChild(button3);
-    choices.appendChild(button4);
+    // questionTitle.textContent = quiz[currentIndex].question;
+    // button1.textContent = quiz[currentIndex].answers[0];
+    // button2.textContent = quiz[currentIndex].answers[1];
+    // button3.textContent = quiz[currentIndex].answers[2];
+    // button4.textContent = quiz[currentIndex].answers[3];
+    // choices.appendChild(button1);
+    // choices.appendChild(button2);
+    // choices.appendChild(button3);
+    // choices.appendChild(button4);
+
+    // console.log(currentIndex);
+
+
+
+    // console.log("current index: " + currentIndex);
 }
 
-function handleButtonClick(event) {
-    var clickedIndex = parseInt(event.target.dataset.index);
+// function handleButtonClick(event) {
+//     var clickedIndex = parseInt(event.target.dataset.index);
+//     // console.log("clicked index:" + clickedIndex);
+//     console.log("current index: " + currentIndex);
 
-    if (clickedIndex === 1) {
-        console.log("correct");
-        feedback.classList.remove("hide");
-        feedback.textContent = "Correct!"
-        setTimeout(function () {
-            feedback.classList.add("hide");
-        }, 1000);
-        score++
-        localStorage.setItem("score", score);
+//     nextQuestion();
+// }
 
-    } else {
-        console.log("incorrect");
-        feedback.classList.remove("hide");
-        feedback.textContent = "Incorrect!"
-        setTimeout(function () {
-            feedback.classList.add("hide");
-        }, 1000);
-        score--
-        localStorage.setItem("score", score);
-        setTimeout(function () {
-            subtractTimeFromTimer(10);
-        });
+function Question() {
+
+    if (currentIndex < quiz.length) {
+        // Change textContent using the current index
+        questionTitle.textContent = quiz[currentIndex].question;
+        button1.textContent = quiz[currentIndex].answers[0];
+        button2.textContent = quiz[currentIndex].answers[1];
+        button3.textContent = quiz[currentIndex].answers[2];
+        button4.textContent = quiz[currentIndex].answers[3];
+
+        choices.innerHTML = ""; // Clear previous buttons
+        choices.appendChild(button1);
+        choices.appendChild(button2);
+        choices.appendChild(button3);
+        choices.appendChild(button4);
     }
 }
 
 function nextQuestion() {
+    currentIndex++
+    Question();
 
-    // Change textContent using the current index
-    questionTitle.textContent = quiz[currentIndex].question;
-    button1.textContent = quiz[currentIndex].answers[0];
-    button2.textContent = quiz[currentIndex].answers[1];
-    button3.textContent = quiz[currentIndex].answers[2];
-    button4.textContent = quiz[currentIndex].answers[3];
+    console.log(currentIndex);
 
-    currentIndex = currentIndex + 1 % quiz.length;
-
+    if (currentIndex >= quiz.length) {
+        questions.classList.add("hide");
+        endScreen.classList.remove("hide");
+    }
 }
+
+
 
 function startQuiz() {
     setTimer();
@@ -121,12 +157,14 @@ function startQuiz() {
 
 
 
+
+
 //set timer on click
 startButton.addEventListener("click", startQuiz);
-button1.addEventListener("click", handleButtonClick);
-button2.addEventListener("click", handleButtonClick);
-button3.addEventListener("click", handleButtonClick);
-button4.addEventListener("click", handleButtonClick);
+// button1.addEventListener("click", handleButtonClick);
+// button2.addEventListener("click", handleButtonClick);
+// button3.addEventListener("click", handleButtonClick);
+// button4.addEventListener("click", handleButtonClick);
 button1.addEventListener("click", nextQuestion);
 button2.addEventListener("click", nextQuestion);
 button3.addEventListener("click", nextQuestion);

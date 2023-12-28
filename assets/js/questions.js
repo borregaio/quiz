@@ -4,15 +4,15 @@ var button1 = document.createElement("button");
 var button2 = document.createElement("button");
 var button3 = document.createElement("button");
 var button4 = document.createElement("button");
+choices.appendChild(button1);
+choices.appendChild(button2);
+choices.appendChild(button3);
+choices.appendChild(button4);
 
 button1.dataset.index = 0;
 button2.dataset.index = 1;
 button3.dataset.index = 2;
 button4.dataset.index = 3;
-
-var currentIndex = 1;
-
-// var answer2 = document.getElementById
 
 
 //questions and answers
@@ -63,6 +63,16 @@ var quiz = [
         ]
     }
 ];
+
+var correctAnswers = [
+    quiz[0].answers[1],
+    quiz[1].answers[1],
+    quiz[2].answers[3],
+    quiz[3].answers[1],
+    quiz[4].answers[1]
+]
+
+// console.log(correctAnswers);
 
 
 
