@@ -9,10 +9,10 @@ choices.appendChild(button2);
 choices.appendChild(button3);
 choices.appendChild(button4);
 
-button1.dataset.index = 0;
-button2.dataset.index = 1;
-button3.dataset.index = 2;
-button4.dataset.index = 3;
+// button1.dataset.index = 0;
+// button2.dataset.index = 1;
+// button3.dataset.index = 2;
+// button4.dataset.index = 3;
 
 
 //questions and answers
