@@ -10,47 +10,60 @@ button2.dataset.index = 1;
 button3.dataset.index = 2;
 button4.dataset.index = 3;
 
-var answer2 = document.getElementById
+var currentIndex = 1;
+
+// var answer2 = document.getElementById
 
 
 //questions and answers
-var quiz = {
-    question1: "What is the correct way to declare a variable in JavaScript?",
-    answers1: [
-        "variable x;",
-        "var x;",
-        "x = var;",
-        "declare x;"
-    ],
-    question2: "What is the result of the following expression? 10 + '5'",
-    answers2: [
-        "15",
-        "'105'",
-        "105",
-        "Error"
-    ],
-    question3: "How do you write an 'if' statement in JavaScript?",
-    answers3: [
-        "if x == 5 then",
-        "if (x = 5)",
-        "if x = 5",
-        "if (x === 5)"
-    ],
-    question4: "How do you access the third element in an array named myArray?",
-    answers4: [
-        "myArray(2)",
-        "myArray[2]",
-        "myArray.3",
-        "myArray.third"
-    ],
-    question5: "How do you define a function in JavaScript?",
-    answers5: [
-        "function myFunction() => { }",
-        "myFunction = function() { }",
-        "def myFunction() { }",
-        "function = myFunction() { }"
-    ]
-};
+var quiz = [
+    {
+        question: "What is the correct way to declare a variable in JavaScript?",
+        answers: [
+            "variable x;",
+            "var x;",
+            "x = var;",
+            "declare x;"
+        ]
+    },
+    {
+        question: "What is the result of the following expression? 10 + '5'",
+        answers: [
+            "15",
+            "'105'",
+            "105",
+            "Error"
+        ]
+    },
+    {
+        question: "How do you write an 'if' statement in JavaScript?",
+        answers: [
+            "if x == 5 then",
+            "if (x = 5)",
+            "if x = 5",
+            "if (x === 5)"
+        ]
+    },
+    {
+        question: "How do you access the third element in an array named myArray?",
+        answers: [
+            "myArray(2)",
+            "myArray[2]",
+            "myArray.3",
+            "myArray.third"
+        ]
+    },
+    {
+        question: "How do you define a function in JavaScript?",
+        answers: [
+            "function myFunction() => { }",
+            "myFunction = function() { }",
+            "def myFunction() { }",
+            "function = myFunction() { }"
+        ]
+    }
+];
+
 
 
 
