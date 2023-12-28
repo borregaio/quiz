@@ -2,6 +2,9 @@ var timer = document.getElementById("time");
 var startButton = document.getElementById("start");
 var startScreen = document.getElementById("start-screen");
 var questions = document.getElementById("questions");
+var feedback = document.getElementById("feedback");
+var score = localStorage.getItem("score");
+// var score = [];
 
 var secondsLeft = 60;
 
@@ -26,6 +29,7 @@ function hideScreen() {
     startScreen.classList.toggle("hide");
 }
 
+
 //make questions div visible
 
 function showQuestions() {
@@ -42,8 +46,55 @@ function showQuestions() {
     choices.appendChild(button3);
     choices.appendChild(button4);
 
-
+    button1.addEventListener("click", handleButtonClick);
+    button2.addEventListener("click", handleButtonClick);
+    button3.addEventListener("click", handleButtonClick);
+    button4.addEventListener("click", handleButtonClick);
 }
+
+function handleButtonClick(event) {
+    var clickedIndex = parseInt(event.target.dataset.index);
+
+    if (clickedIndex === 1) {
+        console.log("correct");
+        feedback.classList.remove("hide");
+        feedback.textContent = "Correct!"
+        setTimeout(function() {
+            feedback.classList.add("hide");
+        }, 1000);
+        score++
+        localStorage.setItem("score", score);
+
+    } else {
+        console.log("incorrect");
+    }
+}
+
+    // var isClicked = true;
+
+    // answer1.addEventListener("click", function() {
+    //     if (isClicked) {
+    //         console.log("incorrect");
+    //     } 
+    // });
+
+    // answer2.addEventListener("click", function() {
+    //     if (isClicked) {
+    //         console.log("correct");
+    //     } 
+    // });
+
+    // answer3.addEventListener("click", function() {
+    //     if (isClicked) {
+    //         console.log("incorrect");
+    //     } 
+    // });
+
+    // answer4.addEventListener("click", function() {
+    //     if (isClicked) {
+    //         console.log("incorrect");
+    //     } 
+    // });
 
 function startQuiz() {
     setTimer();

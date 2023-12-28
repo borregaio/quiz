@@ -5,6 +5,13 @@ var button2 = document.createElement("button");
 var button3 = document.createElement("button");
 var button4 = document.createElement("button");
 
+button1.dataset.index = 0;
+button2.dataset.index = 1;
+button3.dataset.index = 2;
+button4.dataset.index = 3;
+
+var answer2 = document.getElementById
+
 
 //questions and answers
 var quiz = {
