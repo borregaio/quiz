@@ -4,7 +4,22 @@ var startScreen = document.getElementById("start-screen");
 var questions = document.getElementById("questions");
 var feedback = document.getElementById("feedback");
 var endScreen = document.getElementById("end-screen");
+
+var finalScore = document.getElementById("final-score");
+var submit = document.getElementById("submit");
+// var initials = document.getElementById("initials").value;
+
+localStorage.setItem("score", 0);
 var score = localStorage.getItem("score");
+
+
+
+
+
+
+localStorage.setItem("userInitials", "");
+var userInitials = localStorage.getItem("userInitials");
+
 //index for array questios and answers
 var currentIndex = 0;
 // var score = [];
@@ -23,6 +38,9 @@ function setTimer() {
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
+            questions.classList.add("hide");
+            endScreen.classList.remove("hide");
+            finalScore.textContent = score;
         }
         // set the content of timer to seconds left
         timer.textContent = secondsLeft;
@@ -82,7 +100,12 @@ function incorrectAnswer() {
     setTimeout(function () {
         feedback.classList.add("hide");
     }, 1000);
-    score--
+    //prevent score to be negative
+    if (score < 1) {
+        score = 0;
+    } else {
+        return
+    }
     localStorage.setItem("score", score);
     setTimeout(function () {
         subtractTimeFromTimer(10);
@@ -123,6 +146,7 @@ function nextQuestion() {
     if (currentIndex >= quiz.length) {
         questions.classList.add("hide");
         endScreen.classList.remove("hide");
+        finalScore.textContent = score;
     }
 }
 
@@ -177,9 +201,33 @@ function handleButtonClick(event) {
     // nextQuestion();
 }
 
+// var highscores = document.getElementById("high-scores");
+// var initials = document.getElementById("initials").value;
 
 
 
+// Add a click event listener to the button
+submit.addEventListener("click", function () {
+    // Change the window location to the desired HTML page
+    window.location.href = "highscores.html";
+});
+
+submit.addEventListener("click", function() {
+    // Get the user input from the text input
+    var userInput = document.getElementById("initials").value;
+
+    // Store the user input in local storage
+    localStorage.setItem("userInitials", userInput);
+
+    // Output the updated value to the console (optional)
+    console.log("User Initials:", localStorage.getItem("userInitials"));
+  });
+
+
+//grab initials
+
+// var initials = document.getElementById("initials").innerHtml;
+// var displayScore = finalScore.innerHtml;
 
 
 
