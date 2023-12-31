@@ -1,20 +1,33 @@
-var highscores = document.getElementById("highscores");
-
 var score = localStorage.getItem("score");
-
 var userInitials = localStorage.getItem("userInitials");
-console.log(userInitials);
+console.log("User Initials:", localStorage.getItem("userInitials"));
+var clear = document.getElementById("clear");
 
 
-function handleSubmission() {
+// Retrieve highscores from local storage
+var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-}
+// Get the UL element where the highscores will be displayed
+var highscoresList = document.getElementById("highscores");
 
-// Create a new li element
-var listItem = document.createElement("li");
+// Iterate through the highscores and create an LI element for each
+highscores.forEach(function(scoreObj) {
+    var listItem = document.createElement("li");
+    listItem.textContent = scoreObj.userInitials + " - Score: " + scoreObj.score;
+    highscoresList.appendChild(listItem);
+});
 
-// Set the text content of the li element to the user's initials
-listItem.textContent = userInitials.toUpperCase() + " - Score: " + score;
-console.log(listItem);
-// Append the li element to an existing list (replace 'yourListId' with the actual ID of your list)
-highscores.appendChild(listItem);
+
+//clear data
+
+// Add an event listener to the "clear" button
+clear.addEventListener("click", function () {
+    // Remove all child elements from the highscoresList
+    while (highscoresList.firstChild) {
+        highscoresList.removeChild(highscoresList.firstChild);
+    }
+
+    // Optionally, you may want to clear the highscores array and update the local storage
+    highscores = [];
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+});

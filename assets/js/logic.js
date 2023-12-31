@@ -167,26 +167,31 @@ function handleButtonClick(event) {
     // Set selectedAnswer to the clicked button's textContent
     selectedAnswer = clickedButton.textContent;
 
-    // You can now use selectedAnswer to check against the correct answer
-    if (currentIndex === 0 && selectedAnswer === correctAnswers[0]) {
-        console.log("Correct!");
-        correctAnswer();
-        // Optionally, you can store the score or perform other actions
-        // Example: score++;
-    } else if (currentIndex === 1 && selectedAnswer === correctAnswers[1]) {
-        console.log("yay");
-        correctAnswer();
-    } else if (currentIndex === 2 && selectedAnswer === correctAnswers[2]) {
-        console.log("awesome");
-        correctAnswer();
-    } else if (currentIndex === 3 && selectedAnswer === correctAnswers[3]) {
-        console.log("super");
-        correctAnswer();
-    } else if (currentIndex === 4 && selectedAnswer === correctAnswers[4]) {
-        console.log("yabadadabuuuu");
-        correctAnswer();
-    }
+    // // You can now use selectedAnswer to check against the correct answer
+    // if (currentIndex === 0 && selectedAnswer === correctAnswers[0]) {
+    //     console.log("Correct!");
+    //     correctAnswer();
+    //     // Optionally, you can store the score or perform other actions
+    //     // Example: score++;
+    // } else if (currentIndex === 1 && selectedAnswer === correctAnswers[1]) {
+    //     console.log("yay");
+    //     correctAnswer();
+    // } else if (currentIndex === 2 && selectedAnswer === correctAnswers[2]) {
+    //     console.log("awesome");
+    //     correctAnswer();
+    // } else if (currentIndex === 3 && selectedAnswer === correctAnswers[3]) {
+    //     console.log("super");
+    //     correctAnswer();
+    // } else if (currentIndex === 4 && selectedAnswer === correctAnswers[4]) {
+    //     console.log("yabadadabuuuu");
+    //     correctAnswer();
+    // }
 
+// Check if selectedAnswer matches the correct answer for the current index
+if (currentIndex < correctAnswers.length && selectedAnswer === correctAnswers[currentIndex]) {
+    console.log("Correct!");
+    correctAnswer();
+}
 
 
 
@@ -207,21 +212,26 @@ function handleButtonClick(event) {
 
 
 // Add a click event listener to the button
-submit.addEventListener("click", function () {
-    // Change the window location to the desired HTML page
-    window.location.href = "highscores.html";
-});
+// submit.addEventListener("click", function () {
 
-submit.addEventListener("click", function() {
+// });
+
+submit.addEventListener("click", function () {
     // Get the user input from the text input
     var userInput = document.getElementById("initials").value;
 
-    // Store the user input in local storage
-    localStorage.setItem("userInitials", userInput);
+    // Retrieve existing highscores from local storage
+    var existingHighscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-    // Output the updated value to the console (optional)
-    console.log("User Initials:", localStorage.getItem("userInitials"));
-  });
+    // Add the new score object to the highscores array
+    existingHighscores.push({ userInitials: userInput.toUpperCase(), score: localStorage.getItem("score") });
+
+    // Store the updated highscores in local storage
+    localStorage.setItem("highscores", JSON.stringify(existingHighscores));
+
+    // Change the window location to the desired HTML page
+    window.location.href = "highscores.html";
+});
 
 
 //grab initials
