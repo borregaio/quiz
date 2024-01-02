@@ -1,37 +1,22 @@
+//Get elements by id
 var timer = document.getElementById("time");
 var startButton = document.getElementById("start");
 var startScreen = document.getElementById("start-screen");
 var questions = document.getElementById("questions");
 var feedback = document.getElementById("feedback");
 var endScreen = document.getElementById("end-screen");
-
 var finalScore = document.getElementById("final-score");
 var submit = document.getElementById("submit");
-// var initials = document.getElementById("initials").value;
 
+// Local storage
 localStorage.setItem("score", 0);
 var score = localStorage.getItem("score");
-
-
-
-
-
-
 localStorage.setItem("userInitials", "");
 var userInitials = localStorage.getItem("userInitials");
 
-//index for array questios and answers
-var currentIndex = 0;
-// var score = [];
-
-
-var selectedAnswer = "";
-
-
-
+//Timer function
 var secondsLeft = 60;
 
-//timer function
 function setTimer() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
@@ -42,7 +27,7 @@ function setTimer() {
             endScreen.classList.remove("hide");
             finalScore.textContent = score;
         }
-        // set the content of timer to seconds left
+        // Set the content of timer to seconds left
         timer.textContent = secondsLeft;
 
     }, 1000);
@@ -53,22 +38,14 @@ function subtractTimeFromTimer(timeToSubtract) {
     if (secondsLeft > timeToSubtract) {
         // Subtract time from the current remaining time
         secondsLeft -= timeToSubtract;
-        // Optionally, you can update the timer display immediately
+        // Update the timer display immediately
         timer.textContent = secondsLeft;
     } else {
-        // Handle the case where subtracting the specified time exceeds the remaining time
         console.log("Cannot subtract more time than remaining.");
     }
 }
 
-
-//hide start screen function
-function hideScreen() {
-    startScreen.classList.toggle("hide");
-}
-
-//sounds
-
+//Sounds for correct and wrong answers
 function correctSound() {
     var audio = new Audio("./assets/sfx/correct.wav");
     audio.play();
@@ -79,28 +56,32 @@ function incorrectSound() {
     audio.play();
 }
 
-//-------------------------------
+//Correct answer function
 function correctAnswer() {
-    console.log("correct");
+    //Sound function
     correctSound();
+    //Show "Correct!" for a few seconds
     feedback.classList.remove("hide");
     feedback.textContent = "Correct!"
     setTimeout(function () {
         feedback.classList.add("hide");
     }, 1000);
+    //Update score
     score++
     localStorage.setItem("score", score);
 }
 
+//Incorrect answer function
 function incorrectAnswer() {
-    console.log("incorrect");
+    //Sound function
     incorrectSound();
+    //Show "Incorrect!" for a few seconds
     feedback.classList.remove("hide");
     feedback.textContent = "Incorrect!"
     setTimeout(function () {
         feedback.classList.add("hide");
     }, 1000);
-    //prevent score to be negative
+    //Prevent score to be negative
     if (score < 1) {
         score = 0;
     } else {
@@ -111,14 +92,21 @@ function incorrectAnswer() {
         subtractTimeFromTimer(10);
     });
 }
-//------------------------------------
 
-//make questions div visible
+//Hide start screen function
+function hideScreen() {
+    startScreen.classList.toggle("hide");
+}
+
+//Make questions div visible and show first question
 function showQuestions() {
     questions.classList.remove("hide");
     Question();
-    console.log(currentIndex);
 }
+
+//Function to show the first question and answers
+//Index number for quiz array
+var currentIndex = 0;
 
 function Question() {
     if (currentIndex < quiz.length) {
@@ -137,12 +125,12 @@ function Question() {
     }
 }
 
+//Function to show the next question
 function nextQuestion() {
     currentIndex++
     Question();
 
-    console.log(currentIndex);
-
+    //Show final score screen quen questions are finished
     if (currentIndex >= quiz.length) {
         questions.classList.add("hide");
         endScreen.classList.remove("hide");
@@ -150,72 +138,27 @@ function nextQuestion() {
     }
 }
 
+// Function for marching clicked answers to correct answers
+var selectedAnswer = "";
+
 function handleButtonClick(event) {
-
-    // var clickedIndex = parseInt(event.target.dataset.index);
-    // console.log("clicked index: " + clickedIndex);
-
-    // if (currentIndex === 0 && clickedIndex.textContent === correctAnswers[0]) {
-    //     console.log("it works!");
-    // } else {
-    //     console.log("no workin");
-    // }
-
     // Get the clicked button element
     var clickedButton = event.target;
 
     // Set selectedAnswer to the clicked button's textContent
     selectedAnswer = clickedButton.textContent;
 
-    // // You can now use selectedAnswer to check against the correct answer
-    // if (currentIndex === 0 && selectedAnswer === correctAnswers[0]) {
-    //     console.log("Correct!");
-    //     correctAnswer();
-    //     // Optionally, you can store the score or perform other actions
-    //     // Example: score++;
-    // } else if (currentIndex === 1 && selectedAnswer === correctAnswers[1]) {
-    //     console.log("yay");
-    //     correctAnswer();
-    // } else if (currentIndex === 2 && selectedAnswer === correctAnswers[2]) {
-    //     console.log("awesome");
-    //     correctAnswer();
-    // } else if (currentIndex === 3 && selectedAnswer === correctAnswers[3]) {
-    //     console.log("super");
-    //     correctAnswer();
-    // } else if (currentIndex === 4 && selectedAnswer === correctAnswers[4]) {
-    //     console.log("yabadadabuuuu");
-    //     correctAnswer();
-    // }
-
-// Check if selectedAnswer matches the correct answer for the current index
-if (currentIndex < correctAnswers.length && selectedAnswer === correctAnswers[currentIndex]) {
-    console.log("Correct!");
-    correctAnswer();
-}
-
-
-
-    else {
+    // Check if selectedAnswer matches the correct answer for the current index
+    if (currentIndex < correctAnswers.length && selectedAnswer === correctAnswers[currentIndex]) {
+        console.log("Correct!");
+        correctAnswer();
+    } else {
         console.log("Incorrect!");
         incorrectAnswer();
-        // Optionally, you can subtract time or perform other actions
-        // Example: subtractTimeFromTimer(10); // Subtract 10 seconds
     }
-
-    // Move to the next question
-    // nextQuestion();
 }
 
-// var highscores = document.getElementById("high-scores");
-// var initials = document.getElementById("initials").value;
-
-
-
-// Add a click event listener to the button
-// submit.addEventListener("click", function () {
-
-// });
-
+//Event listener for submit button and store user initials
 submit.addEventListener("click", function () {
     // Get the user input from the text input
     var userInput = document.getElementById("initials").value;
@@ -233,65 +176,14 @@ submit.addEventListener("click", function () {
     window.location.href = "highscores.html";
 });
 
-
-//grab initials
-
-// var initials = document.getElementById("initials").innerHtml;
-// var displayScore = finalScore.innerHtml;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Function to start the quiz
 function startQuiz() {
     setTimer();
     hideScreen();
     showQuestions();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//set timer on click
+//Event listeners
 startButton.addEventListener("click", startQuiz);
 
 button1.addEventListener("click", handleButtonClick);
@@ -303,10 +195,3 @@ button1.addEventListener("click", nextQuestion);
 button2.addEventListener("click", nextQuestion);
 button3.addEventListener("click", nextQuestion);
 button4.addEventListener("click", nextQuestion);
-
-// button1.addEventListener("click", clickCount);
-// button2.addEventListener("click", clickCount);
-// button3.addEventListener("click", clickCount);
-// button4.addEventListener("click", clickCount);
-// startButton.addEventListener("click", hideScreen);
-// startButton.addEventListener("click", showQuestions);

@@ -1,6 +1,6 @@
+// Create local sotarge
 var score = localStorage.getItem("score");
 var userInitials = localStorage.getItem("userInitials");
-console.log("User Initials:", localStorage.getItem("userInitials"));
 var clear = document.getElementById("clear");
 
 
@@ -17,9 +17,6 @@ highscores.forEach(function(scoreObj) {
     highscoresList.appendChild(listItem);
 });
 
-
-//clear data
-
 // Add an event listener to the "clear" button
 clear.addEventListener("click", function () {
     // Remove all child elements from the highscoresList
@@ -27,7 +24,7 @@ clear.addEventListener("click", function () {
         highscoresList.removeChild(highscoresList.firstChild);
     }
 
-    // Optionally, you may want to clear the highscores array and update the local storage
+    // Clear the highscores array and update the local storage
     highscores = [];
     localStorage.setItem("highscores", JSON.stringify(highscores));
 });
