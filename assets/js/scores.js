@@ -1,4 +1,4 @@
-// Create local sotarge
+// Create local storage
 var score = localStorage.getItem("score");
 var userInitials = localStorage.getItem("userInitials");
 var clear = document.getElementById("clear");
@@ -7,10 +7,10 @@ var clear = document.getElementById("clear");
 // Retrieve highscores from local storage
 var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-// Get the UL element where the highscores will be displayed
+// Get the ul element where the highscores will be displayed
 var highscoresList = document.getElementById("highscores");
 
-// Iterate through the highscores and create an LI element for each
+// Iterate through the highscores and create an li element for each
 highscores.forEach(function(scoreObj) {
     var listItem = document.createElement("li");
     listItem.textContent = scoreObj.userInitials + " - Score: " + scoreObj.score;
